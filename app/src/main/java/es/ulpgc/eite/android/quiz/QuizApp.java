@@ -7,7 +7,7 @@ public class QuizApp extends Application {
 
   private QuestionState questionState;
   private CheatState cheatState;
-  private QuestionStore questionStore;
+  private QuestionModel questionModel;
 
   @Override
   public void onCreate() {
@@ -17,11 +17,11 @@ public class QuizApp extends Application {
     questionState.toolbarVisible = false;
     questionState.answerVisible = false;
 
-    questionStore = new QuestionStore();
+    questionModel = new QuestionModel();
   }
 
-  public QuestionStore getQuestionStore(){
-    return questionStore;
+  public QuestionModel getQuestionModel(){
+    return questionModel;
   }
 
   public boolean isAnswerBtnClicked() {
@@ -44,7 +44,7 @@ public class QuizApp extends Application {
     questionState.answerVisible = visible;
   }
 
-  public void goToCheatScreen(QuestionActivity activity){
+  public void goToCheatScreen(QuestionView activity){
     cheatState = new CheatState();
     cheatState.toolbarVisible = false;
     cheatState.answerVisible = false;

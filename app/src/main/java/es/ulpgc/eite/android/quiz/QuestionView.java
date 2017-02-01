@@ -8,17 +8,19 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class QuestionActivity extends AppCompatActivity {
+public class QuestionView extends AppCompatActivity {
 
 
   private boolean toolbarVisible;
   private boolean answerVisible;
-  private QuestionStore questionStore;
+  private QuestionModel questionModel;
   private boolean answerBtnClicked;
 
   private Toolbar toolbarScreen;
   private Button buttonTrue, buttonFalse, buttonCheat, buttonNext;
   private TextView labelQuestion, labelAnswer;
+
+  private Presenter presenter;
   //private QuizApp quizApp;
 
 
@@ -34,20 +36,31 @@ public class QuestionActivity extends AppCompatActivity {
     toolbarScreen = (Toolbar) findViewById(R.id.toolbar);
     setSupportActionBar(toolbarScreen);
 
+    /****************************************************
+     *    Asociacion  boton respuesta true y su listener*
+     ****************************************************/
+
     buttonTrue = (Button) findViewById(R.id.buttonTrue);
     buttonTrue.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
-        onTrueBtnClicked();
+        presenter.onTrueBtnClicked();
       }
     });
+
+    /*****************************************************
+     *    Asociacion  boton respuesta false y su listener*
+     *****************************************************/
     buttonFalse = (Button) findViewById(R.id.buttonFalse);
     buttonFalse.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
-        onFalseBtnClicked();
+        presenter.onFalseBtnClicked();
       }
     });
+    /**********************************************
+     *    Asociacion  boton de cheat y su listener*
+     **********************************************/
     buttonCheat = (Button) findViewById(R.id.buttonCheat);
     buttonCheat.setOnClickListener(new View.OnClickListener() {
       @Override
@@ -55,66 +68,88 @@ public class QuestionActivity extends AppCompatActivity {
         onCheatBtnClicked();
       }
     });
+
+    /********************************************************
+     *    Asociacion  boton siguiente pregunta y su listener*
+     ********************************************************/
+
     buttonNext = (Button) findViewById(R.id.buttonNext);
     buttonNext.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
-        onNextBtnClicked();
+        presenter.onNextBtnClicked();
       }
     });
 
+
+    //Creamos presentador
+    presenter = new Presenter(this);
+    // Iniciamos con la primera pantalla
     onScreenStarted();
 
   }
 
+
   private void onScreenStarted() {
     //quizApp = (QuizApp) getApplication();
-    questionStore = new QuestionStore();
+    questionModel = new QuestionModel();
     
     setButtonLabels();
     checkVisibility();
 
-    setQuestion(getQuestionStore().getCurrentQuestion());
+    //Insertamos primera pregunta
+    presenter.fstQuestion();
+
+
+    //setQuestion(getQuestionModel().getCurrentQuestion());
+
     if(isAnswerBtnClicked()){
-      setAnswer(getQuestionStore().getCurrentAnswer());
+      presenter.fstAnswer();
+
+     // setAnswer(getQuestionModel().getCurrentAnswer());
     }
   }
 
 
   private void setButtonLabels(){
-    setTrueButton(getQuestionStore().getTrueLabel());
-    setFalseButton(getQuestionStore().getFalseLabel());
-    setCheatButton(getQuestionStore().getCheatLabel());
-    setNextButton(getQuestionStore().getNextLabel());
+    setTrueButton(getQuestionModel().getTrueLabel());
+    setFalseButton(getQuestionModel().getFalseLabel());
+    setCheatButton(getQuestionModel().getCheatLabel());
+    setNextButton(getQuestionModel().getNextLabel());
   }
   
   private void onCheatBtnClicked() {
     goToCheatScreen();
   }
 
+ /* //añadida mvp
   private void onFalseBtnClicked() {
     onAnswerBtnClicked(false);
   }
 
+//añadida mvp
   private void onNextBtnClicked(){
-    setQuestion(getQuestionStore().getNextQuestion());
+    setQuestion(getQuestionModel().getNextQuestion());
   }
 
+  //añadida mvp
   private void onTrueBtnClicked() {
     onAnswerBtnClicked(true);
-  }
+  }*/
 
-  private void onAnswerBtnClicked(boolean answer) {
-    getQuestionStore().setCurrentAnswer(answer);
-    setAnswer(getQuestionStore().getCurrentAnswer());
+  //añadida modelo
+  public void onAnswerBtnClicked(boolean answer) {
+    getQuestionModel().setCurrentAnswer(answer);
+    setAnswer(getQuestionModel().getCurrentAnswer());
     setAnswerVisibility(true);
     setAnswerBtnClicked(true);
 
     checkAnswerVisibility();
   }
 
-  private QuestionStore getQuestionStore() {
-    return questionStore;
+  //añadida modelo
+  private QuestionModel getQuestionModel() {
+    return questionModel;
   }
 
   private boolean isAnswerVisible() {
@@ -146,8 +181,8 @@ public class QuestionActivity extends AppCompatActivity {
     quizApp.setAnswerBtnClicked(clicked);
   }
 
-  private QuestionStore getQuestionStore() {
-    return quizApp.getQuestionStore();
+  private QuestionModel getQuestionModel() {
+    return quizApp.getQuestionModel();
   }
 
   private boolean isToolbarVisible() {
@@ -197,8 +232,13 @@ public class QuestionActivity extends AppCompatActivity {
     toolbarScreen.setVisibility(View.GONE);
   }
 
-  private void setAnswer(String text) {
+  //editada para mvp
+  public void setAnswer(String text) {
     labelAnswer.setText(text);
+    setAnswerVisibility(true);
+    setAnswerBtnClicked(true);
+
+    checkAnswerVisibility();
   }
 
   private void setCheatButton(String label) {
@@ -213,7 +253,7 @@ public class QuestionActivity extends AppCompatActivity {
     buttonNext.setText(label);
   }
 
-  private void setQuestion(String text) {
+  public void setQuestion(String text) {
     labelQuestion.setText(text);
   }
 
