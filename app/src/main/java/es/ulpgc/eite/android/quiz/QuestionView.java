@@ -111,11 +111,17 @@ public class QuestionView extends AppCompatActivity {
   }
 
 
+  //Añadimos el texto a los botones
   private void setButtonLabels(){
-    setTrueButton(getQuestionModel().getTrueLabel());
-    setFalseButton(getQuestionModel().getFalseLabel());
-    setCheatButton(getQuestionModel().getCheatLabel());
-    setNextButton(getQuestionModel().getNextLabel());
+    //setTrueButton(getQuestionModel().getTrueLabel());
+    //setFalseButton(getQuestionModel().getFalseLabel());
+    //setCheatButton(getQuestionModel().getCheatLabel());
+    //setNextButton(getQuestionModel().getNextLabel());
+
+    presenter.getTrueLabel();
+    presenter.getFalseLabel();
+    presenter.getCheatLabel();
+    presenter.getNextLabel();
   }
   
   private void onCheatBtnClicked() {
@@ -241,15 +247,15 @@ public class QuestionView extends AppCompatActivity {
     checkAnswerVisibility();
   }
 
-  private void setCheatButton(String label) {
+  public void setCheatButton(String label) {
     buttonCheat.setText(label);
   }
 
-  private void setFalseButton(String label) {
+  public void setFalseButton(String label) {
     buttonFalse.setText(label);
   }
 
-  private void setNextButton(String label) {
+  public void setNextButton(String label) {
     buttonNext.setText(label);
   }
 
@@ -257,7 +263,7 @@ public class QuestionView extends AppCompatActivity {
     labelQuestion.setText(text);
   }
 
-  private void setTrueButton(String label) {
+  public void setTrueButton(String label) {
     buttonTrue.setText(label);
   }
 

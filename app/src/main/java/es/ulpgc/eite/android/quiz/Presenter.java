@@ -45,4 +45,24 @@ public class Presenter {
     }
 
 
+    /**************************************************************
+     *  Metodos para insertar el texto en los botones que existen *
+     *  en la pantalla inicial*                                   *
+     * ************************************************************/
+
+    public void getTrueLabel() {
+        myView.setTrueButton(model.getTrueLabel());
+    }
+
+    public void getFalseLabel() {
+        myView.setFalseButton(model.getFalseLabel());
+    }
+
+    public void getCheatLabel() {
+        myView.setCheatButton(model.getCheatLabel());
+    }
+
+    public void getNextLabel() {
+        myView.setNextButton(model.getNextLabel());
+    }
 }
