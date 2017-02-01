@@ -13,7 +13,7 @@ public class QuestionView extends AppCompatActivity {
 
   private boolean toolbarVisible;
   private boolean answerVisible;
-  private QuestionModel questionModel;
+  //private QuestionModel questionModel;
   private boolean answerBtnClicked;
 
   private Toolbar toolbarScreen;
@@ -92,8 +92,9 @@ public class QuestionView extends AppCompatActivity {
 
   private void onScreenStarted() {
     //quizApp = (QuizApp) getApplication();
-    questionModel = new QuestionModel();
-    
+    //questionModel = new QuestionModel();
+
+    //insertamos texto en los botones
     setButtonLabels();
     checkVisibility();
 
@@ -144,19 +145,19 @@ public class QuestionView extends AppCompatActivity {
   }*/
 
   //añadida modelo
-  public void onAnswerBtnClicked(boolean answer) {
-    getQuestionModel().setCurrentAnswer(answer);
-    setAnswer(getQuestionModel().getCurrentAnswer());
-    setAnswerVisibility(true);
-    setAnswerBtnClicked(true);
-
-    checkAnswerVisibility();
-  }
+//  public void onAnswerBtnClicked(boolean answer) {
+//    getQuestionModel().setCurrentAnswer(answer);
+//    setAnswer(getQuestionModel().getCurrentAnswer());
+//    setAnswerVisibility(true);
+//    setAnswerBtnClicked(true);
+//
+//    checkAnswerVisibility();
+//  }
 
   //añadida modelo
-  private QuestionModel getQuestionModel() {
-    return questionModel;
-  }
+//  private QuestionModel getQuestionModel() {
+//    return questionModel;
+//  }
 
   private boolean isAnswerVisible() {
     return answerVisible;
