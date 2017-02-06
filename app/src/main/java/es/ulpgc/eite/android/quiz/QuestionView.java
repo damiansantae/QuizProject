@@ -58,6 +58,7 @@ public class QuestionView extends AppCompatActivity {
         presenter.onFalseBtnClicked();
       }
     });
+
     /**********************************************
      *    Asociacion  boton de cheat y su listener*
      **********************************************/
@@ -92,7 +93,8 @@ public class QuestionView extends AppCompatActivity {
 
   private void onScreenStarted() {
     //quizApp = (QuizApp) getApplication();
-    //questionModel = new QuestionModel();
+
+
 
     //insertamos texto en los botones
     setButtonLabels();
@@ -102,22 +104,19 @@ public class QuestionView extends AppCompatActivity {
     presenter.fstQuestion();
 
 
-    //setQuestion(getQuestionModel().getCurrentQuestion());
+    //s
 
     if(isAnswerBtnClicked()){
       presenter.fstAnswer();
 
-     // setAnswer(getQuestionModel().getCurrentAnswer());
+
     }
   }
 
 
   //Añadimos el texto a los botones
   private void setButtonLabels(){
-    //setTrueButton(getQuestionModel().getTrueLabel());
-    //setFalseButton(getQuestionModel().getFalseLabel());
-    //setCheatButton(getQuestionModel().getCheatLabel());
-    //setNextButton(getQuestionModel().getNextLabel());
+
 
     presenter.getTrueLabel();
     presenter.getFalseLabel();
@@ -129,35 +128,6 @@ public class QuestionView extends AppCompatActivity {
     goToCheatScreen();
   }
 
- /* //añadida mvp
-  private void onFalseBtnClicked() {
-    onAnswerBtnClicked(false);
-  }
-
-//añadida mvp
-  private void onNextBtnClicked(){
-    setQuestion(getQuestionModel().getNextQuestion());
-  }
-
-  //añadida mvp
-  private void onTrueBtnClicked() {
-    onAnswerBtnClicked(true);
-  }*/
-
-  //añadida modelo
-//  public void onAnswerBtnClicked(boolean answer) {
-//    getQuestionModel().setCurrentAnswer(answer);
-//    setAnswer(getQuestionModel().getCurrentAnswer());
-//    setAnswerVisibility(true);
-//    setAnswerBtnClicked(true);
-//
-//    checkAnswerVisibility();
-//  }
-
-  //añadida modelo
-//  private QuestionModel getQuestionModel() {
-//    return questionModel;
-//  }
 
   private boolean isAnswerVisible() {
     return answerVisible;
@@ -179,31 +149,6 @@ public class QuestionView extends AppCompatActivity {
     answerBtnClicked = clicked;
   }
 
-  /*
-  private boolean isAnswerBtnClicked() {
-    return quizApp.isAnswerBtnClicked();
-  }
-
-  private void setAnswerBtnClicked(boolean clicked) {
-    quizApp.setAnswerBtnClicked(clicked);
-  }
-
-  private QuestionModel getQuestionModel() {
-    return quizApp.getQuestionModel();
-  }
-
-  private boolean isToolbarVisible() {
-    return quizApp.isToolbarVisible();
-  }
-
-  private void setAnswerVisibility(boolean visible) {
-    quizApp.setAnswerVisibility(visible);
-  }
-
-  private boolean isAnswerVisible() {
-    return quizApp.isAnswerVisible();
-  }
-  */
 
   private void goToCheatScreen(){
     startActivity(new Intent(this, CheatActivity.class));
