@@ -54,7 +54,7 @@ public class CheatActivity extends AppCompatActivity {
   }
 
   private void onScreenStarted() {
-    //quizApp = (QuizApp) getApplication();
+    quizApp = (QuizApp) getApplication();
 
     falseLabel = "False";
     trueLabel = "True";
@@ -70,17 +70,18 @@ public class CheatActivity extends AppCompatActivity {
 
   private void onFalseBtnClicked() {
     finish();
-    //quizApp.backToQuestionScreen(this);
+    quizApp.backToQuestionScreen(this);
   }
 
   private void onTrueBtnClicked() {
+    setAnswer(true);
     setAnswer(getAnswer());
     setAnswerVisibility(true);
     confirmBtnClicked = true;
     checkAnswerVisibility();
   }
 
-  /*
+
   private void setAnswerVisibility(boolean visible) {
     quizApp.setAnswerVisibility(visible);
   }
@@ -92,9 +93,9 @@ public class CheatActivity extends AppCompatActivity {
   private boolean isToolbarVisible() {
     return quizApp.isToolbarVisible();
   }
-  */
 
-  private void setAnswerVisibility(boolean visible) {
+
+/*  private void setAnswerVisibility(boolean visible) {
     answerVisible = visible;
   }
 
@@ -104,7 +105,7 @@ public class CheatActivity extends AppCompatActivity {
 
   private boolean isToolbarVisible() {
     return toolbarVisible;
-  }
+  }*/
 
 
   private void checkAnswerVisibility(){

@@ -11,17 +11,15 @@ import android.widget.TextView;
 public class QuestionView extends AppCompatActivity {
 
 
-  private boolean toolbarVisible;
-  private boolean answerVisible;
-  //private QuestionModel questionModel;
-  private boolean answerBtnClicked;
+
+
 
   private Toolbar toolbarScreen;
   private Button buttonTrue, buttonFalse, buttonCheat, buttonNext;
   private TextView labelQuestion, labelAnswer;
 
-  private Presenter presenter;
-  //private QuizApp quizApp;
+
+  private QuizApp quizApp;
 
 
   @Override
@@ -44,7 +42,7 @@ public class QuestionView extends AppCompatActivity {
     buttonTrue.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
-        presenter.onTrueBtnClicked();
+        getPresenter().onTrueBtnClicked();
       }
     });
 
@@ -55,7 +53,7 @@ public class QuestionView extends AppCompatActivity {
     buttonFalse.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
-        presenter.onFalseBtnClicked();
+        getPresenter().onFalseBtnClicked();
       }
     });
 
@@ -66,7 +64,7 @@ public class QuestionView extends AppCompatActivity {
     buttonCheat.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
-        onCheatBtnClicked();
+        getPresenter().onCheatBtnClicked();
       }
     });
 
@@ -78,38 +76,40 @@ public class QuestionView extends AppCompatActivity {
     buttonNext.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
-        presenter.onNextBtnClicked();
+        getPresenter().onNextBtnClicked();
       }
     });
 
 
-    //Creamos presentador
-    presenter = new Presenter(this);
     // Iniciamos con la primera pantalla
     onScreenStarted();
+  }
 
+  //Metodo para obtener presentador
+  public  Presenter getPresenter(){
+    return quizApp.getPresenter();
   }
 
 
   private void onScreenStarted() {
-    //quizApp = (QuizApp) getApplication();
 
+    //Asignamos mediador a la vista
+    quizApp = (QuizApp) getApplication();
+
+    //Informamos al mediador de quien es la vista
+    quizApp.setView(this);
 
 
     //insertamos texto en los botones
     setButtonLabels();
-    checkVisibility();
+    quizApp.checkVisibility();
 
     //Insertamos primera pregunta
-    presenter.fstQuestion();
+    getPresenter().fstQuestion();
 
 
-    //s
-
-    if(isAnswerBtnClicked()){
-      presenter.fstAnswer();
-
-
+    if(quizApp.isAnswerBtnClicked()){
+      getPresenter().fstAnswer();
     }
   }
 
@@ -118,69 +118,18 @@ public class QuestionView extends AppCompatActivity {
   private void setButtonLabels(){
 
 
-    presenter.getTrueLabel();
-    presenter.getFalseLabel();
-    presenter.getCheatLabel();
-    presenter.getNextLabel();
-  }
-  
-  private void onCheatBtnClicked() {
-    goToCheatScreen();
+    getPresenter().getTrueLabel();
+    getPresenter().getFalseLabel();
+    getPresenter().getCheatLabel();
+    getPresenter().getNextLabel();
   }
 
 
-  private boolean isAnswerVisible() {
-    return answerVisible;
-  }
-
-  private boolean isToolbarVisible() {
-    return toolbarVisible;
-  }
-
-  private void setAnswerVisibility(boolean visible) {
-    answerVisible = visible;
-  }
-
-  private boolean isAnswerBtnClicked() {
-    return answerBtnClicked;
-  }
-
-  private void setAnswerBtnClicked(boolean clicked) {
-    answerBtnClicked = clicked;
-  }
-
-
-  private void goToCheatScreen(){
-    startActivity(new Intent(this, CheatActivity.class));
-    //quizApp.goToCheatScreen(this);
-  }
-
-  private void checkAnswerVisibility(){
-    if(!isAnswerVisible()) {
-      hideAnswer();
-    } else {
-      showAnswer();
-    }
-  }
-
-  private void checkToolbarVisibility(){
-    if (!isToolbarVisible()) {
-      hideToolbar();
-    }
-  }
-
-
-  private void checkVisibility(){
-    checkToolbarVisibility();
-    checkAnswerVisibility();
-  }
-
-
-  private void hideAnswer() {
+  public void hideAnswer() {
     labelAnswer.setVisibility(View.INVISIBLE);
   }
 
-  private void hideToolbar() {
+  public void hideToolbar() {
     toolbarScreen.setVisibility(View.GONE);
   }
 
@@ -190,8 +139,24 @@ public class QuestionView extends AppCompatActivity {
     setAnswerVisibility(true);
     setAnswerBtnClicked(true);
 
-    checkAnswerVisibility();
+    quizApp.checkAnswerVisibility();
   }
+
+  private void setAnswerVisibility(boolean visible) {
+    quizApp.setAnswerVisibility(visible);
+  }
+  private void setAnswerBtnClicked(boolean visible) {
+    quizApp.setAnswerBtnClicked(visible);
+  }
+
+  private boolean isAnswerVisible() {
+    return quizApp.isAnswerVisible();
+  }
+
+  private boolean isToolbarVisible() {
+    return quizApp.isToolbarVisible();
+  }
+
 
   public void setCheatButton(String label) {
     buttonCheat.setText(label);
@@ -213,7 +178,7 @@ public class QuestionView extends AppCompatActivity {
     buttonTrue.setText(label);
   }
 
-  private void showAnswer() {
+  public void showAnswer() {
     labelAnswer.setVisibility(View.VISIBLE);
   }
 

@@ -1,0 +1,18 @@
+package es.ulpgc.eite.android.quiz;
+
+/**
+ * Created by Damian on 08/02/2017.
+ */
+
+public class CheatModel {
+
+    private String falseLabel, trueLabel;
+    private String confirmLabel;
+    private boolean trueAnswer;
+
+    public CheatModel(){
+        falseLabel = "False";
+        trueLabel = "True";
+        confirmLabel = "Are you sure?";
+    }
+}

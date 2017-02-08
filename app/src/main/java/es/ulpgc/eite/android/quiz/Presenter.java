@@ -1,33 +1,56 @@
 package es.ulpgc.eite.android.quiz;
 
+import android.view.View;
+
 /**
  * Created by Damian on 01/02/2017.
  */
 
 public class Presenter {
-    private QuestionView myView;
-    private QuestionModel model;
 
-    public Presenter (QuestionView view){
-        myView = view;
-        this.model = new QuestionModel();
+
+
+    private QuizApp mediator;
+
+    public Presenter (QuizApp quizApp){
+
+       mediator = quizApp;
 
     }
+    public QuestionModel getModel() {
+        return mediator.getQuestionModel();
+    }
+
+    public QuestionView getMyView() {
+        return mediator.getView();
+    }
+
+
+
+    /*******************************************
+     *  Acciones al pulsar un botón determinado*
+     * *****************************************/
 
     public void onTrueBtnClicked(){
-        model.onAnswerBtnClicked(true);
-        myView.setAnswer(model.getCurrentAnswer());
+        getModel().onAnswerBtnClicked(true);
+        getMyView().setAnswer(getModel().getCurrentAnswer());
 
     }
     public void onFalseBtnClicked() {
-        model.onAnswerBtnClicked(false);
-        myView.setAnswer(model.getCurrentAnswer());
+        getModel().onAnswerBtnClicked(false);
+        getMyView().setAnswer(getModel().getCurrentAnswer());
     }
 
     public void onNextBtnClicked(){
-       String question= model.getNextQuestion();
-        myView.setQuestion(question);
+       String question= getModel().getNextQuestion();
+        getMyView().setQuestion(question);
 
+    }
+
+
+    public void onCheatBtnClicked() {
+
+        mediator.goToCheatScreen(getMyView());
     }
 
 
@@ -35,13 +58,13 @@ public class Presenter {
     *  Metodos de primera pantalla (primera pregunta y respuesta)*
    * *************************************************************/
     public void fstQuestion() {
-        String question = model.getCurrentQuestion();
-        myView.setQuestion(question);
+        String question = getModel().getCurrentQuestion();
+        getMyView().setQuestion(question);
     }
 
     public void fstAnswer() {
-        String answer = model.getCurrentAnswer();
-        myView.setAnswer(answer);
+        String answer = getModel().getCurrentAnswer();
+        getMyView().setAnswer(answer);
     }
 
 
@@ -51,18 +74,18 @@ public class Presenter {
      * ************************************************************/
 
     public void getTrueLabel() {
-        myView.setTrueButton(model.getTrueLabel());
+        getMyView().setTrueButton(getModel().getTrueLabel());
     }
 
     public void getFalseLabel() {
-        myView.setFalseButton(model.getFalseLabel());
+        getMyView().setFalseButton(getModel().getFalseLabel());
     }
 
     public void getCheatLabel() {
-        myView.setCheatButton(model.getCheatLabel());
+        getMyView().setCheatButton(getModel().getCheatLabel());
     }
 
     public void getNextLabel() {
-        myView.setNextButton(model.getNextLabel());
+        getMyView().setNextButton(getModel().getNextLabel());
     }
 }
