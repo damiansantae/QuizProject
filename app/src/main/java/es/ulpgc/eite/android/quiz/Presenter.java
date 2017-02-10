@@ -44,8 +44,13 @@ public class Presenter {
     }
 
     public void onNextBtnClicked(){
+        getMyView().hideAnswer();
+        mediator.setAnswerVisibility(false);
+
        String question= getModel().getNextQuestion();
+
         getMyView().setQuestion(question);
+
 
     }
 
