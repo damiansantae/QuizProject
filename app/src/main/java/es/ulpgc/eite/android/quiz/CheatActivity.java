@@ -24,6 +24,8 @@ public class CheatActivity extends AppCompatActivity {
   private TextView labelConfirm, labelAnswer;
 
 
+
+
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -49,7 +51,9 @@ public class CheatActivity extends AppCompatActivity {
         onFalseBtnClicked();
       }
     });
-    
+
+
+
     onScreenStarted();
   }
 
@@ -69,7 +73,7 @@ public class CheatActivity extends AppCompatActivity {
   }
 
   private void onFalseBtnClicked() {
-    finish();
+    //finish();
     quizApp.backToQuestionScreen(this);
   }
 
@@ -174,18 +178,19 @@ public class CheatActivity extends AppCompatActivity {
     return falseLabel;
   }
 
+  private String getTrueLabel() {
+    return trueLabel;
+  }
+
 
   private String getAnswer() {
-    if(trueAnswer) {
+    if(quizApp.getQuestionModel().getCheatAnswer()) {
       return trueLabel;
     } else {
       return falseLabel;
     }
   }
 
-  private String getTrueLabel() {
-    return trueLabel;
-  }
 
   private void setAnswer(boolean answer){
     trueAnswer = answer;

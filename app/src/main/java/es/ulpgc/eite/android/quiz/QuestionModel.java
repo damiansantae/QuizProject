@@ -77,6 +77,7 @@ public class QuestionModel {
     }
   }
 
+
   public String getCurrentQuestion() {
     return quizQuestions[quizIndex];
   }
@@ -105,6 +106,10 @@ public class QuestionModel {
 
   public void onAnswerBtnClicked(boolean answer) {
     setCurrentAnswer(answer);
+
+  }
+  public boolean getCheatAnswer (){
+    return quizAnswers[quizIndex];
 
   }
 }

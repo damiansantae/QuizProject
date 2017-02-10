@@ -1,6 +1,5 @@
 package es.ulpgc.eite.android.quiz;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -105,7 +104,7 @@ public class QuestionView extends AppCompatActivity {
     quizApp.checkVisibility();
 
     //Insertamos primera pregunta
-    getPresenter().fstQuestion();
+    getPresenter().getCurrentQuestion();
 
 
     if(quizApp.isAnswerBtnClicked()){

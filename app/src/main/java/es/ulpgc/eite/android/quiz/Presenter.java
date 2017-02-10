@@ -35,6 +35,8 @@ public class Presenter {
         getModel().onAnswerBtnClicked(true);
         getMyView().setAnswer(getModel().getCurrentAnswer());
 
+        mediator.setAnswerVisibility(true);         //indicamos que la respuesta está visible
+
     }
     public void onFalseBtnClicked() {
         getModel().onAnswerBtnClicked(false);
@@ -57,7 +59,7 @@ public class Presenter {
    /**************************************************************
     *  Metodos de primera pantalla (primera pregunta y respuesta)*
    * *************************************************************/
-    public void fstQuestion() {
+    public void getCurrentQuestion() {
         String question = getModel().getCurrentQuestion();
         getMyView().setQuestion(question);
     }
