@@ -15,4 +15,17 @@ public class CheatModel {
         trueLabel = "True";
         confirmLabel = "Are you sure?";
     }
+
+    public String getConfirmLabel() {
+        return confirmLabel;
+    }
+
+
+    public String getFalseLabel() {
+        return falseLabel;
+    }
+
+    public String getTrueLabel() {
+        return trueLabel;
+    }
 }

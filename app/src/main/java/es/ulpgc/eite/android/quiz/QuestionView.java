@@ -106,7 +106,8 @@ public class QuestionView extends AppCompatActivity {
     //Insertamos primera pregunta
     getPresenter().getCurrentQuestion();
 
-
+//Nos asguramos de que aunque se volte la pantalla aparecerá la
+// respuesta que marco el usuario previamente
     if(quizApp.isAnswerBtnClicked()){
       getPresenter().fstAnswer();
     }
@@ -126,6 +127,9 @@ public class QuestionView extends AppCompatActivity {
 
   public void hideAnswer() {
     labelAnswer.setVisibility(View.INVISIBLE);
+  }
+  public void showAnswer() {
+    labelAnswer.setVisibility(View.VISIBLE);
   }
 
   public void hideToolbar() {
@@ -177,9 +181,7 @@ public class QuestionView extends AppCompatActivity {
     buttonTrue.setText(label);
   }
 
-  public void showAnswer() {
-    labelAnswer.setVisibility(View.VISIBLE);
-  }
+
 
 
 }

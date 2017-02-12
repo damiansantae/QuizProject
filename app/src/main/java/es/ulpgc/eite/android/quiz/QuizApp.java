@@ -7,9 +7,16 @@ public class QuizApp extends Application {
 
   private QuestionState questionState;
   private CheatState cheatState;
+
   private QuestionModel questionModel;
   private QuestionView view;
   private Presenter presenter;
+
+  private CheatModel cheatModel;
+  private CheatActivity cheatActivity;
+  private CheatPresenter cheatPresenter;
+
+
 
   @Override
   public void onCreate() {
@@ -21,9 +28,9 @@ public class QuizApp extends Application {
 
   }
 
-  /********************************
-   *  Métodos para obtener el MVP *
-   * ******************************/
+  /**************************************************
+   *  Métodos para obtener el MVP activity principal*
+   * ************************************************/
   public QuestionModel getQuestionModel(){
 
     if (questionModel==null){
@@ -49,9 +56,37 @@ public class QuizApp extends Application {
     return view;
   }
 
-  /*******************************
-   *  Métodos referidos al estado*
-   * *****************************/
+  /***********************************************
+   *  Métodos para obtener el MVP activity cheat *
+   * *********************************************/
+  public CheatModel getCheatModel(){
+
+    if (cheatModel==null){
+      cheatModel= new CheatModel();
+    }
+    return cheatModel;
+
+  }
+  public CheatPresenter getCheatPresenter() {
+    if (cheatPresenter==null){
+      cheatPresenter= new CheatPresenter(this);
+    }
+    return cheatPresenter;
+  }
+
+
+
+  public void setCheatView(CheatActivity view) {
+    this.cheatActivity = view;
+  }
+
+  public CheatActivity getCheatView(){
+    return cheatActivity;
+  }
+
+  /*********************************************************
+   *  Métodos referidos al estado de la activisad principal*
+   * *******************************************************/
 
   public boolean isAnswerBtnClicked() {
     return questionState.answerBtnClicked;
@@ -95,6 +130,8 @@ public class QuizApp extends Application {
   }
 
 
+
+
   private class QuestionState {
     boolean toolbarVisible;
     boolean answerVisible;
@@ -102,12 +139,40 @@ public class QuizApp extends Application {
 
 
   }
+  /*********************************************************
+   *  Métodos referidos al estado del cheat*
+   * *******************************************************/
 
   private class CheatState {
-    boolean toolbarVisible;
-    boolean answerVisible;
-    boolean answerBtnClicked;
+    private boolean toolbarVisible;
+    private boolean answerVisible;
+    private boolean confirmBtnClicked;
+    private boolean answerBtnClicked;
   }
+  public void setCheatAnswerVisibility(boolean visible){
+    cheatState.answerVisible = visible;
+  }
+  public void setConfirmButtonClicked(boolean confirm){
+    cheatState.confirmBtnClicked = confirm;
+  }
+  public boolean isConfirmButtonClicked(){
+    return cheatState.confirmBtnClicked;
+  }
+  public boolean getConfirmButtonClicked(){
+    return cheatState.confirmBtnClicked;
+  }
+  public boolean isCheatAnswerVisible() {
+    return cheatState.answerVisible;
+  }
+
+  public void checkCheatAnswerVisibility(){
+    if(!isCheatAnswerVisible()) {
+      cheatActivity.hideCheatAnswer();
+    } else {
+      cheatActivity.showCheatAnswer();
+    }
+  }
+
 
   /**************************************
    *  Salto y vuelta a la Activity Cheat*

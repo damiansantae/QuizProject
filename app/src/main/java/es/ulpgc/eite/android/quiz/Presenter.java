@@ -17,6 +17,7 @@ public class Presenter {
        mediator = quizApp;
 
     }
+
     public QuestionModel getModel() {
         return mediator.getQuestionModel();
     }
@@ -41,6 +42,7 @@ public class Presenter {
     public void onFalseBtnClicked() {
         getModel().onAnswerBtnClicked(false);
         getMyView().setAnswer(getModel().getCurrentAnswer());
+        mediator.setAnswerVisibility(true);
     }
 
     public void onNextBtnClicked(){
@@ -68,6 +70,7 @@ public class Presenter {
         String question = getModel().getCurrentQuestion();
         getMyView().setQuestion(question);
     }
+
 
     public void fstAnswer() {
         String answer = getModel().getCurrentAnswer();
