@@ -47,6 +47,7 @@ public class Presenter {
 
     public void onNextBtnClicked(){
         getMyView().hideAnswer();
+        mediator.setAnswerBtnClicked(false);
         mediator.setAnswerVisibility(false);
 
        String question= getModel().getNextQuestion();

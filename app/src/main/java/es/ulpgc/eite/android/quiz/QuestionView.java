@@ -84,7 +84,7 @@ public class QuestionView extends AppCompatActivity {
     onScreenStarted();
   }
 
-  //Metodo para obtener presentador
+    //Metodo para obtener presentador
   public  Presenter getPresenter(){
     return quizApp.getPresenter();
   }
